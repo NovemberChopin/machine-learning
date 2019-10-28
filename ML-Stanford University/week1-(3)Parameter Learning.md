@@ -1,5 +1,7 @@
 ## Parameter Learning
 
+**The article contains the markdown math formula. Check out the need to install the [MathJax Plugin for Github](<https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related>) browser plugin on github.**
+
 ### 1. Gradient Descent
 
 So we have our hypothesis function and we have a way of measuring how well it fits into the data. Now we need to estimate the parameters in the hypothesis function. That's where gradient descent comes in.

@@ -1,5 +1,7 @@
 ## ML-Introduction
 
+**The article contains the markdown math formula. Check out the need to install the [MathJax Plugin for Github](<https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related>) browser plugin on github.**
+
 ### Supervised Learning
 
 In supervised learning, we are given a data set and already know what our correct output should look like, having the idea that there is a relationship between the input and the output.
