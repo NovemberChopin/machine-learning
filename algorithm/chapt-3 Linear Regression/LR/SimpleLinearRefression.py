@@ -1,4 +1,5 @@
 import numpy as np
+from .metrics import r2_score
 
 class SimpleLinearRegression1:
 
@@ -80,6 +81,11 @@ class SimpleLinearRegression:
 	def _predict(self, x_single):
 		# 给定单个待预测数据 x_single, 返回x_single 的预测结果值
 		return self.a_ * x_single + self.b_
+
+	def score(self, x_test, y_test):
+		# 确定当前模型准确度, 返回 R Squared
+		y_predict = self.predict(x_test)
+		return r2_score(y_test, y_predict)
 
 	def __repr__(self):
 		return "SimpleLinearRegression()"
