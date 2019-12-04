@@ -84,7 +84,7 @@ class LinearRegression(object):
             m = len(X_b)
 
             for cur_iter in range(n_iters):
-            	# 对样本索引随机排列
+                # 对样本索引随机排列
                 indexes = np.random.permutation(m)
                 X_b_new = X_b[indexes]
                 y_new = y[indexes]
