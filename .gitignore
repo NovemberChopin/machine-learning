@@ -1,7 +1,9 @@
 .ipynb_checkpoints
 
-cifar-10-batches-py
+cifar-10-batches-
 
-__pycache__
+__pycache__py
 
 .idea
+
+callbacks
