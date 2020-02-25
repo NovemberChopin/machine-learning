@@ -1,5 +1,5 @@
 ## Python3入门机器学习 经典算法与应用(课程代码)
 
-![](/home/js/Pictures/screenPicture/Screenshot-20200225150430-1420x931.png)
+![](https://s2.ax1x.com/2020/02/25/3YYA7n.png)
 
-![](/home/js/Pictures/screenPicture/Screenshot-20200225150543-1199x900.png)
+![](https://s2.ax1x.com/2020/02/25/3YYnpT.png)
