@@ -28,5 +28,5 @@ def mean_absolute_error(y_true, y_predict):
 
 def r2_score(y_true, y_predict):
 	# 计算 y_true 和 y_predict 之间的 R Square
-
+	# 1 - （MSE / 方差）
 	return 1 - mean_squared_error(y_true, y_predict) / np.var(y_true)
