@@ -1,6 +1,8 @@
 """
 朴决策树的实现
-2019/4/18
+DecisionTree: 离散数据
+DecisionTree2: 连续数据
+2020/05/12
 """
 import numpy as np
 import pandas as pd
@@ -148,7 +150,7 @@ class DecisionTree2():
         self.tree = None    # 构建的二叉树
         self.depth = depth  # 二叉树的深度
 
-    def split(self, X_train, y_train, d, value):
+    def _split(self, X_train, y_train, d, value):
         '''
         基于维度 d 的 value 值进行划分
         :param d: 要划分的维度
@@ -159,7 +161,7 @@ class DecisionTree2():
         index_b = (X_train[:, d] > value)
         return X_train[index_a], X_train[index_b], y_train[index_a], y_train[index_b]
 
-    def entropy(self, y_train):
+    def _entropy(self, y_train):
         '''
         计算 y_train 样本点的熵
         :return: 熵
@@ -171,7 +173,7 @@ class DecisionTree2():
             res += -p * math.log(p)
         return res
 
-    def try_split(self, X, y):
+    def _try_split(self, X, y):
         '''
         寻找要划分的 value 值，寻找最小信息熵及相应的点
         :return:
@@ -185,31 +187,35 @@ class DecisionTree2():
             for i in range(1, len(X)):
                 if X[sorted_index[i - 1], d] != X[sorted_index[i], d]:
                     v = (X[sorted_index[i - 1], d] + X[sorted_index[i], d]) / 2
-                    x_l, x_r, y_l, y_r = self.split(X, y, d, v)
+                    x_l, x_r, y_l, y_r = self._split(X, y, d, v)
                     # 计算当前划分后的两部分结果熵是多少
-                    e = self.entropy(y_l) + self.entropy(y_r)
+                    e = self._entropy(y_l) + self._entropy(y_r)
                     if e < best_entropy:
                         best_entropy, best_d, best_v = e, d, v
         return best_entropy, best_d, best_v
 
-    def build_tree(self, X_train, y_train):
+    def _build_tree(self, X_train, y_train):
+        '''
+        递归构建决策树
+        '''
         self.depth -= 1
+        # 如果决策树达到预定的深度 或者 标签都是同一类，生成叶子节点返回
         if self.depth < 0 or len(np.unique(y_train)) == 1:
             # 投票选出最多的标签作为叶子节点的 label
             label = Counter(y_train).most_common(1)[0][0]
             return Node2(lchild=None, rchild=None, value=None, feature=None, label=label)
         else:
             # 选择出分类特征， 分类节点值
-            best_entropy, best_d, best_v = self.try_split(X_train, y_train)
+            best_entropy, best_d, best_v = self._try_split(X_train, y_train)
             # 根据节点分割数据
-            x_l, x_r, y_l, y_r = self.split(X_train, y_train, best_d, best_v)
+            x_l, x_r, y_l, y_r = self._split(X_train, y_train, best_d, best_v)
             # 递归构建左右子树
-            lchild = self.build_tree(x_l, y_l)
-            rchild = self.build_tree(x_r, y_r)
+            lchild = self._build_tree(x_l, y_l)
+            rchild = self._build_tree(x_r, y_r)
             return Node2(lchild=lchild, rchild=rchild, value=best_v, feature=best_d, label=None)
 
     def fit(self, X_train, y_train):
-        self.tree = self.build_tree(X_train, y_train)
+        self.tree = self._build_tree(X_train, y_train)
 
     def _predict(self, x_train):
         tree = self.tree
